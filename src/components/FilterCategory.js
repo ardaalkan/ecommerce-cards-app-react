@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "react-query";
 
-const FilterToolbar = ({ filter, setFilter }) => {
+const FilterCategory = ({ filter, setFilter }) => {
   const getCategories = async () =>
     await (await fetch("https://fakestoreapi.com/products/categories")).json();
 
@@ -16,7 +16,7 @@ const FilterToolbar = ({ filter, setFilter }) => {
   };
 
   return (
-    <div className="bg-gray-200 p-6 rounded-xl">
+    <div>
       <h1>Filter items by category</h1>
       <select
         name="pets"
@@ -30,7 +30,7 @@ const FilterToolbar = ({ filter, setFilter }) => {
         ))}
         {filter && (
           <div
-            className="p-4 bg-slate-300"
+            className="p-4 bg-slate-500"
             onClick={() => {
               setFilter("");
             }}
@@ -41,4 +41,4 @@ const FilterToolbar = ({ filter, setFilter }) => {
   );
 };
 
-export default FilterToolbar;
+export default FilterCategory;
