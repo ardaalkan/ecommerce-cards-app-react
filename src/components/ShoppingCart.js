@@ -4,7 +4,7 @@ import CartItems from "./ShoppingCartItems";
 export default function ShoppingCart({ isOpen }) {
   const { closeCart, cartItems, getTotalItems } = useShoppingCart();
 
-  console.log(cartItems);
+  console.log(getTotalItems(cartItems));
 
   return (
     <main
@@ -35,8 +35,7 @@ export default function ShoppingCart({ isOpen }) {
             </h3>
           ) : (
             <div className="flex display-col justify-end mr-10">
-              <h3 className="font-bold">Total: {getTotalItems}&nbsp;</h3>
-              
+              <h3 className="font-bold">Total Quantity: {getTotalItems(cartItems)}&nbsp;</h3>
             </div>
           )}
         </article>
