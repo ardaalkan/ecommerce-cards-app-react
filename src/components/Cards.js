@@ -2,7 +2,7 @@ import React from "react";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 
 const Cards = ({ item }) => {
-  const { handleAddToCart, closeCart, cartItems } = useShoppingCart();
+  const { handleAddToCart, cartItems } = useShoppingCart();
 
   return (
     <div class="mt-5 mb-5 m-auto max-w-sm min-w-md w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">

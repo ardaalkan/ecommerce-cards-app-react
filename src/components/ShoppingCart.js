@@ -1,9 +1,10 @@
 import { useShoppingCart } from "../context/ShoppingCartContext";
+import CartItems from "./ShoppingCartItems";
 
 export default function ShoppingCart({ isOpen }) {
-  const { closeCart, cartItems } = useShoppingCart();
+  const { closeCart, cartItems, getTotalItems } = useShoppingCart();
 
-  console.log(cartItems, `cart items state`);
+  console.log(cartItems);
 
   return (
     <main
@@ -22,7 +23,22 @@ export default function ShoppingCart({ isOpen }) {
       >
         <article className="relative w-screen max-w-lg pb-5 flex flex-col space-y-6 overflow-y-scroll h-full">
           <header className="p-4 font-bold text-lg ml-2">Cart</header>
-          {cartItems.length === 0 ? <h3 className="ml-6">Cart is empty</h3> : {cartItems.map((item) => (<CartItems/>))}}
+          {cartItems.map((item) => (
+            <CartItems {...item} />
+          ))}
+          {cartItems.length === 0 ? (
+            <h3 className="pl-6">
+              Cart Item is empty.{" "}
+              <span role="img" className="mt-5 text-3xl">
+                🧐
+              </span>
+            </h3>
+          ) : (
+            <div className="flex display-col justify-end mr-10">
+              <h3 className="font-bold">Total: {getTotalItems}&nbsp;</h3>
+              
+            </div>
+          )}
         </article>
       </section>
       <section
