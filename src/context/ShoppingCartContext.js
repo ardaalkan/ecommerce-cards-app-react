@@ -73,6 +73,7 @@ export function ShoppingCartProvider({ children }) {
     <ShoppingCartContext.Provider
       value={{
         cartItems,
+        setCartItems,
         closeCart,
         openCart,
         getTotalItems,

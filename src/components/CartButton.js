@@ -4,7 +4,7 @@ const CartButton = ({ open }) => {
   return (
     <button
       onClick={open}
-      className="mr-7 ml-5 w-12 h-12 rounded-full border border-black hover:bg-indigo-200 right-4 bottom-4"
+      className="mr-7 ml-5 w-12 h-12 rounded-full my-auto border border-black hover:bg-indigo-200 right-4 bottom-4"
     >
       <svg
         style={{ width: "1.7rem", margin: "auto", display: "fixed" }}

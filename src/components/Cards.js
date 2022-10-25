@@ -8,12 +8,12 @@ const Cards = ({ item }) => {
     <div class="mt-5 mb-5 m-auto max-w-sm min-w-md w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
       <img
         class="rounded-t-lg max-h-80 mx-auto rounded-md mt-6 h-96 w-60"
-        src={item.image}
-        alt=""
+        src={item?.image}
+        alt="hata-resim"
       />
       <div class="p-5 bg-slate-800 ">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          {item.title}
+          {item?.title}
         </h5>
         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"></p>
         <span

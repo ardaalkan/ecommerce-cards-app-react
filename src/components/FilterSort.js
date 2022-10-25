@@ -1,23 +1,19 @@
 import React from "react";
 import { useQuery } from "react-query";
 
-const FilterCategory = ({ filter, setFilter }) => {
-  const getCategories = async () =>
-    await (await fetch("https://fakestoreapi.com/products/categories")).json();
+// const SortOptions {
+//     LOW_TO_HIGH = "Price low to high",
+//     HIGH_TO_LOW = "Price high to low",
+//   }
 
-  const { data, isLoading, error } = useQuery("categories", getCategories);
-
-  if (isLoading) return <span>loading...</span>;
-
-  if (error) return <div>Something went wrong...</div>;
-
-  const onChangeCategory = (e) => {
-    setFilter(e.target.value);
+const FilterSort = ({ sort, setSort }) => {
+  const onChangeSort = (e) => {
+    setSort(e.target.value);
   };
 
   return (
     <div>
-      <h1>Filter items by category</h1>
+      <h1>Filter items by sort</h1>
       <select
         className="form-select appearance-none
         block
@@ -36,18 +32,18 @@ const FilterCategory = ({ filter, setFilter }) => {
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
         name="filter"
         id="filter-select"
-        value={filter ?? ""}
-        onChange={onChangeCategory}
+        value={sort ?? ""}
+        onChange={onChangeSort}
       >
-        <option value="">--Please choose an option--</option>
-        {data.map((item) => (
+        <option value="">--Please choose an sort--</option>
+        {/* {Object.values().map((item) => (
           <option>{item}</option>
-        ))}
-        {filter && (
+        ))} */}
+        {sort && (
           <div
             className="p-4 bg-slate-500"
             onClick={() => {
-              setFilter("");
+              setSort(undefined);
             }}
           ></div>
         )}
@@ -56,4 +52,4 @@ const FilterCategory = ({ filter, setFilter }) => {
   );
 };
 
-export default FilterCategory;
+export default FilterSort;
