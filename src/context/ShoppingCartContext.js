@@ -15,8 +15,9 @@ export function ShoppingCartProvider({ children }) {
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
 
-  const getTotalItems = (items) =>
-    items.reduce((ack, item) => ack + item.amount, 0);
+  function getTotalItems(items) {
+    return items.reduce((acc, item) => acc + item.amount, 0);
+  }
 
   const handleAddToCart = (clickedItem) => {
     setCartItems((prev) => {
@@ -44,30 +45,25 @@ export function ShoppingCartProvider({ children }) {
     setCartItems((prev) =>
       prev.reduce((ack, item) => {
         if (item.id === id) {
-          // if (item.amount === 1) {
-          //   toast.info(`${correctionItemName(item.title)} removed from cart!`, {
-          //     autoClose: 1500,
-          //     position: "bottom-right",
-          //     transition: Flip,
-          //   });
-          //   return ack;
-          // }
+          if (item.amount === 1) {
+            toast.info(`${correctionItemName(item.title)} removed from cart!`, {
+              autoClose: 1500,
+              position: "bottom-right",
+              transition: Flip,
+            });
+            return ack;
+          }
           return [...ack, { ...item, amount: item.amount - 1 }];
         } else {
           return [...ack, item];
         }
-      }, [])
+      })
     );
   };
 
-  const removeAllItemsFromCart = () => {
+  function removeAllItemsFromCart() {
     setCartItems([]);
-    // toast.info("All items removed from cart!", {
-    //   autoClose: 1500,
-    //   position: "top-center",
-    //   transition: Flip,
-    // });
-  };
+  }
 
   return (
     <ShoppingCartContext.Provider

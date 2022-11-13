@@ -6,7 +6,7 @@ export default function CartItems({ item }) {
   // const item = storeItems.find((i) => i.id === id);
   // if (item == null) return null;
 
-  console.log(item?.price, `shop`);
+  console.log(item.price);
 
   return (
     <div className="flex border border-gray-300 shadow rounded-md p-4 max-w-md w-full mx-auto justify-between mt-2">

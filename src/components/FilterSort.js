@@ -1,18 +1,14 @@
 import React from "react";
-import { useQuery } from "react-query";
-
-// const SortOptions {
-//     LOW_TO_HIGH = "Price low to high",
-//     HIGH_TO_LOW = "Price high to low",
-//   }
+import { objects } from "../App";
 
 const FilterSort = ({ sort, setSort }) => {
-  const onChangeSort = (e) => {
-    setSort(e.target.value);
+
+  const handleSortChange = (event) => {
+    setSort(event.target.value);
   };
 
   return (
-    <div>
+    <>
       <h1>Filter items by sort</h1>
       <select
         className="form-select appearance-none
@@ -33,12 +29,13 @@ const FilterSort = ({ sort, setSort }) => {
         name="filter"
         id="filter-select"
         value={sort ?? ""}
-        onChange={onChangeSort}
+        onChange={handleSortChange}
       >
         <option value="">--Please choose an sort--</option>
-        {/* {Object.values().map((item) => (
-          <option>{item}</option>
-        ))} */}
+        {/* TODO: Define to object values */}
+        {objects.values.map((item) => (
+          <option key={item}>{item}</option>
+        ))}
         {sort && (
           <div
             className="p-4 bg-slate-500"
@@ -48,7 +45,7 @@ const FilterSort = ({ sort, setSort }) => {
           ></div>
         )}
       </select>
-    </div>
+    </>
   );
 };
 

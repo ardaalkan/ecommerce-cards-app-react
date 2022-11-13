@@ -33,7 +33,9 @@ export default function ShoppingCart({ isOpen }) {
             </h3>
           ) : (
             <div className="flex display-col justify-end mr-10">
-              <h3 className="font-bold">Total Quantity: {getTotalItems(cartItems)}&nbsp;</h3>
+              <h3 className="font-bold">
+                Total Quantity: {getTotalItems(cartItems)}&nbsp;
+              </h3>
             </div>
           )}
         </article>

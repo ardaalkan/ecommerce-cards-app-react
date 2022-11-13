@@ -2,7 +2,9 @@ import React from "react";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 
 const Cards = ({ item }) => {
-  const { handleAddToCart, cartItems } = useShoppingCart();
+  const { cartItems, handleAddToCart } = useShoppingCart();
+
+  console.log(cartItems);
 
   return (
     <div class="mt-5 mb-5 m-auto max-w-sm min-w-md w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
@@ -17,7 +19,9 @@ const Cards = ({ item }) => {
         </h5>
         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"></p>
         <span
-          onClick={handleAddToCart}
+        onClick={() => {
+          handleAddToCart();
+        }}
           href="#"
           class="cursor-pointer   inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >

@@ -7,11 +7,16 @@ import Cards from "./components/Cards";
 import CartButton from "./components/CartButton";
 import { useShoppingCart } from "./context/ShoppingCartContext";
 
+export const objects = {
+  LOW_TO_HIGH: "Price low to high",
+  HIGH_TO_LOW: "Price high to low",
+};
+
 const App = () => {
   const [state, setState] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState("");
   const [selectedSort, setSelectedSort] = useState();
-  const { status, data, isLoading, error } = useGetItems(selectedFilter ?? "");
+  const { status, data } = useGetItems(selectedFilter ?? "");
   const { openCart } = useShoppingCart();
 
   useEffect(() => {
@@ -20,25 +25,25 @@ const App = () => {
     }
   }, [status, data]);
 
-  // const sortItemsByPrice = useCallback(() => {
-  //   if (selectedSort === "Price low to high") {
-  //     setState((prev) => {
-  //       return [...prev].sort((a, b) => a.price - b.price);
-  //     });
-  //   } else if (selectedSort === "Price high to low") {
-  //     setState((prev) => {
-  //       return [...prev].sort((a, b) => b.price - a.price);
-  //     });
-  //   }
-  // }, [selectedSort, setState, state]);
+  const sortItemsByPrice = useCallback(() => {
+    if (selectedSort === "Price low to high") {
+      setState((prev) => {
+        return [...prev].sort((a, b) => a.price - b.price);
+      });
+    } else if (selectedSort === "Price high to low") {
+      setState((prev) => {
+        return [...prev].sort((a, b) => b.price - a.price);
+      });
+    }
+  }, [selectedSort, setState]);
 
-  // useEffect(() => {
-  //   if (selectedSort) {
-  //     sortItemsByPrice();
-  //   } else if (selectedSort === undefined || selectedSort === "") {
-  //     setState(data);
-  //   }
-  // }, [selectedSort, data]);
+  useEffect(() => {
+    if (selectedSort) {
+      sortItemsByPrice();
+    } else if (selectedSort === undefined || selectedSort === "") {
+      setState(data);
+    }
+  }, [selectedSort, data, setState]);
 
   return (
     <section className="w-full h-24 p-6">
