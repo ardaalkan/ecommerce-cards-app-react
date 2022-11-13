@@ -1,9 +1,10 @@
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import CartItems from "./ShoppingCartItems";
 
+
 export default function ShoppingCart({ isOpen }) {
   const { closeCart, cartItems, getTotalItems } = useShoppingCart();
-  // TODO: FIX THE CART ITEMS DEFINITION
+
   return (
     <main
       className={
@@ -21,10 +22,10 @@ export default function ShoppingCart({ isOpen }) {
       >
         <article className="relative w-screen max-w-lg pb-5 flex flex-col space-y-6 overflow-y-scroll h-full">
           <header className="p-4 font-bold text-lg ml-2">Cart</header>
-          {cartItems.map((item) => (
-            <CartItems key={item?.id} {...item} />
+          {cartItems?.map((item) => (
+            <CartItems key={item?.id} item={item} />
           ))}
-          {cartItems.length === 0 ? (
+          {cartItems && cartItems.length === 0 ? (
             <h3 className="pl-6">
               Cart Item is empty.{" "}
               <span role="img" className="mt-5 text-3xl">

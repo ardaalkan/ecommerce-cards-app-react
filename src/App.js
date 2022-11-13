@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 import "./App.css";
-import useGetItems from "./hooks/useGetItems";
 import FilterCategory from "./components/FilterCategory";
 import FilterSort from "./components/FilterSort";
 import Cards from "./components/Cards";
@@ -13,37 +12,25 @@ export const objects = {
 };
 
 const App = () => {
-  const [state, setState] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState("");
   const [selectedSort, setSelectedSort] = useState();
-  const { status, data } = useGetItems(selectedFilter ?? "");
-  const { openCart } = useShoppingCart();
-
-  useEffect(() => {
-    if (status === "success") {
-      setState(data);
-    }
-  }, [status, data]);
+  const { openCart, products, setProducts, setCategory } = useShoppingCart();
 
   const sortItemsByPrice = useCallback(() => {
     if (selectedSort === "Price low to high") {
-      setState((prev) => {
+      setProducts((prev) => {
         return [...prev].sort((a, b) => a.price - b.price);
       });
     } else if (selectedSort === "Price high to low") {
-      setState((prev) => {
+      setProducts((prev) => {
         return [...prev].sort((a, b) => b.price - a.price);
       });
     }
-  }, [selectedSort, setState]);
+  }, [selectedSort, setProducts]);
 
-  // useEffect(() => {
-  //   if (selectedSort) {
-  //     sortItemsByPrice();
-  //   } else if (selectedSort === undefined || selectedSort === "") {
-  //     setState(data);
-  //   }
-  // }, [selectedSort, data, setState]);
+  useEffect(() => {
+    if (selectedSort) sortItemsByPrice();
+  }, [selectedSort, sortItemsByPrice]);
 
   return (
     <section className="w-full h-24 p-6">
@@ -51,14 +38,14 @@ const App = () => {
         <div>
           <FilterCategory
             filter={selectedFilter}
-            setFilter={setSelectedFilter}
+            setFilter={(e) => setCategory(e)}
           />
           <FilterSort sort={selectedSort} setSort={setSelectedSort} />
         </div>
         <CartButton open={openCart} />
       </div>
       <div className="w-4/5 grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 mx-auto">
-        {state.map((item) => (
+        {products?.map((item) => (
           <Cards key={item.id} item={item} />
         ))}
       </div>

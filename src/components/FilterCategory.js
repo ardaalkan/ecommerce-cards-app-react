@@ -40,8 +40,8 @@ const FilterCategory = ({ filter, setFilter }) => {
         onChange={onChangeCategory}
       >
         <option value="">--Please choose an option--</option>
-        {data.map((item) => (
-          <option>{item}</option>
+        {data.map((item, index) => (
+          <option key={index}>{item}</option>
         ))}
         {filter && (
           <div

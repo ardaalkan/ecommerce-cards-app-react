@@ -1,7 +1,9 @@
-import { createContext, useContext, useState } from "react";
+import "react-toastify/dist/ReactToastify.css";
+import { createContext, useContext, useState, useEffect } from "react";
 import ShoppingCart from "../components/ShoppingCart";
-import { ToastContainer, toast, Flip } from "react-toastify";
+import { toast, Flip } from "react-toastify";
 import { correctionItemName } from "../utils/string";
+import useGetItems from "../hooks/useGetItems";
 
 const ShoppingCartContext = createContext({});
 
@@ -12,10 +14,19 @@ export function useShoppingCart() {
 export function ShoppingCartProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [category, setCategory] = useState("");
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
 
+  const { data, isLoading } = useGetItems(category);
+
+  useEffect(() => {
+    setProducts(data);
+  }, [data, isLoading]);
+
   function getTotalItems(items) {
+    if (!items) return 0;
     return items.reduce((acc, item) => acc + item.amount, 0);
   }
 
@@ -31,34 +42,39 @@ export function ShoppingCartProvider({ children }) {
             : item
         );
       }
-      // toast.success(`${correctionItemName(clickedItem.title)} added to cart!`, {
-      //   autoClose: 1500,
-      //   position: "bottom-right",
-      //   transition: Flip,
-      // });
+
       // First time the item is added
       return [...prev, { ...clickedItem, amount: 1 }];
+    });
+
+    toast.success(`${correctionItemName(clickedItem.title)} added to cart!`, {
+      autoClose: 1500,
+      position: "bottom-right",
+      transition: Flip,
     });
   };
 
   const handleRemoveFromCart = (id) => {
+    let title = "";
     setCartItems((prev) =>
-      prev.reduce((ack, item) => {
+      prev.reduce((acc, item) => {
         if (item.id === id) {
-          if (item.amount === 1) {
-            toast.info(`${correctionItemName(item.title)} removed from cart!`, {
-              autoClose: 1500,
-              position: "bottom-right",
-              transition: Flip,
-            });
-            return ack;
-          }
-          return [...ack, { ...item, amount: item.amount - 1 }];
+          title = item.title;
+
+          if (item.amount === 1) return acc;
+          return [...acc, { ...item, amount: item.amount - 1 }];
         } else {
-          return [...ack, item];
+          return [...acc, item];
         }
-      })
+      }, [])
     );
+
+    if (title)
+      toast.info(`${correctionItemName(title)} removed from cart!`, {
+        autoClose: 1500,
+        position: "bottom-right",
+        transition: Flip,
+      });
   };
 
   function removeAllItemsFromCart() {
@@ -76,6 +92,9 @@ export function ShoppingCartProvider({ children }) {
         handleAddToCart,
         handleRemoveFromCart,
         removeAllItemsFromCart,
+        products,
+        setProducts,
+        setCategory,
       }}
     >
       {children}
