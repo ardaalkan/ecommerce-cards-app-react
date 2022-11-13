@@ -37,13 +37,13 @@ const App = () => {
     }
   }, [selectedSort, setState]);
 
-  useEffect(() => {
-    if (selectedSort) {
-      sortItemsByPrice();
-    } else if (selectedSort === undefined || selectedSort === "") {
-      setState(data);
-    }
-  }, [selectedSort, data, setState]);
+  // useEffect(() => {
+  //   if (selectedSort) {
+  //     sortItemsByPrice();
+  //   } else if (selectedSort === undefined || selectedSort === "") {
+  //     setState(data);
+  //   }
+  // }, [selectedSort, data, setState]);
 
   return (
     <section className="w-full h-24 p-6">

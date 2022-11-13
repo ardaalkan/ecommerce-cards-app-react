@@ -33,9 +33,9 @@ const FilterSort = ({ sort, setSort }) => {
       >
         <option value="">--Please choose an sort--</option>
         {/* TODO: Define to object values */}
-        {objects.values.map((item) => (
+        {/* {objects.values.map((item) => (
           <option key={item}>{item}</option>
-        ))}
+        ))} */}
         {sort && (
           <div
             className="p-4 bg-slate-500"
