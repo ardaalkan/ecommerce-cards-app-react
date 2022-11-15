@@ -2,7 +2,7 @@ import React from "react";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 
 const CartButton = ({ open }) => {
-  const { cartItems, getTotalItems } = useShoppingCart();
+  const { cartItems } = useShoppingCart();
 
   return (
     <div className="justify-between flex">
